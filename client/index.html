@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GoMoKu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #1a1208;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Raleway', sans-serif;
+            color: #e8d9b0;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 48px;
+            letter-spacing: 10px;
+            color: #d4a84b;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #6b5a38;
+            margin-bottom: 32px;
+        }
+
+        #name-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #name-input {
+            padding: 11px 20px;
+            font-size: 15px;
+            font-family: 'Raleway', sans-serif;
+            border-radius: 3px;
+            border: 1px solid #5a4020;
+            background: #120f07;
+            color: #e8d9b0;
+            width: 240px;
+            text-align: center;
+            outline: none;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        #name-input::placeholder { color: #4a3920; }
+        #name-input:focus { border-color: #d4a84b; }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 280px;
+        }
+
+        .btn {
+            padding: 11px 10px;
+            font-size: 10px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            border: 1px solid #5a4020;
+            border-radius: 3px;
+            cursor: pointer;
+            text-transform: uppercase;
+            background: transparent;
+            color: #d4a84b;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn:hover {
+            background: #2a1e0a;
+            border-color: #d4a84b;
+        }
+
+        .btn.ai-btn { color: #7ab0d4; border-color: #2a4a6a; }
+        .btn.ai-btn:hover { background: #0a1a2a; border-color: #7ab0d4; }
+
+        .btn.join-btn { color: #a0c87a; border-color: #3a5a2a; }
+        .btn.join-btn:hover { background: #0a1a08; border-color: #a0c87a; }
+
+        #join-input-row {
+            display: none;
+            margin-top: 10px;
+            gap: 8px;
+            width: 280px;
+        }
+
+        #join-input-row.visible { display: flex; }
+
+        #code-input {
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: 'Cinzel', serif;
+            border-radius: 3px;
+            border: 1px solid #a0c87a;
+            background: #120f07;
+            color: #a0c87a;
+            width: 100%;
+            text-align: center;
+            outline: none;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        #code-input::placeholder { color: #3a5a2a; letter-spacing: 2px; }
+
+        #confirm-join-btn {
+            padding: 10px 16px;
+            font-size: 10px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            border: 1px solid #a0c87a;
+            border-radius: 3px;
+            cursor: pointer;
+            text-transform: uppercase;
+            background: transparent;
+            color: #a0c87a;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+        #confirm-join-btn:hover { background: #0a1a08; }
+
+        #game-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #room-code-bar {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #6b5a38;
+            min-height: 18px;
+            text-align: center;
+        }
+
+        #room-code-bar span {
+            color: #d4a84b;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+        }
+
+        #player-bar {
+            display: flex;
+            width: 560px;
+            border: 1px solid #3a2e1a;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #120f07;
+        }
+
+        .player-cell {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border-right: 1px solid #3a2e1a;
+            transition: background 0.3s;
+        }
+
+        .player-cell:last-child { border-right: none; }
+
+        .stone-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .stone-icon.black { background: #111; border: 2px solid #666; }
+        .stone-icon.white { background: #ddd; border: 2px solid #aaa; }
+
+        .player-info { display: flex; flex-direction: column; gap: 2px; }
+
+        .player-label {
+            font-size: 10px;
+            color: #a08858;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .player-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #c8b078;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .player-cell.active { background: #1e1608; }
+        .player-cell.active .player-name { color: #f0d060; }
+        .player-cell.active .stone-icon.black { border-color: #d4a84b; }
+        .player-cell.active .stone-icon.white { border-color: #d4a84b; }
+
+        #status {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #6b5a38;
+            min-height: 20px;
+            text-align: center;
+        }
+
+        #status.active { color: #d4a84b; }
+        #status.error  { color: #c46a4a; }
+        #status.win    { color: #7ab87a; }
+
+        #back-btn {
+            display: none;
+            margin-top: 6px;
+            padding: 8px 24px;
+            font-size: 10px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid #c46a4a;
+            color: #c46a4a;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #back-btn:hover { background: #2a0a0a; }
+
+        #board-wrapper {
+            border: 1px solid #5a4020;
+            border-radius: 3px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+        }
+
+        #board-container {
+            position: relative;
+            width: 560px;
+            height: 560px;
+        }
+
+        #board-bg {
+            width: 560px;
+            height: 560px;
+            position: absolute;
+            top: 0; left: 0;
+            display: block;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0; left: 0;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="name-screen">
+        <h1>GoMoKu</h1>
+        <p class="subtitle">Connect Five</p>
+        <input type="text" id="name-input" placeholder="Enter your name" maxlength="20"/>
+
+        <div class="btn-grid">
+            <button class="btn" onclick="joinGame('create_room')">Create Room</button>
+            <button class="btn join-btn" onclick="showJoinInput()">Join Room</button>
+            <button class="btn" onclick="joinGame('random')">Play Random</button>
+            <button class="btn ai-btn" onclick="joinGame('ai')">vs AI</button>
+        </div>
+
+        <div id="join-input-row">
+            <input type="text" id="code-input" placeholder="Enter code" maxlength="6"/>
+            <button id="confirm-join-btn" onclick="confirmJoin()">Join</button>
+        </div>
+    </div>
+
+    <div id="game-screen">
+        <h1>GoMoKu</h1>
+
+        <div id="room-code-bar"></div>
+
+        <div id="player-bar">
+            <div class="player-cell" id="p1-cell">
+                <div class="stone-icon black"></div>
+                <div class="player-info">
+                    <span class="player-label">Player 1</span>
+                    <span class="player-name" id="p1-name">—</span>
+                </div>
+            </div>
+            <div class="player-cell" id="p2-cell">
+                <div class="stone-icon white"></div>
+                <div class="player-info">
+                    <span class="player-label">Player 2</span>
+                    <span class="player-name" id="p2-name">—</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="status">Connecting...</div>
+        <button id="back-btn" onclick="backToMenu()">Back to Menu</button>
+
+        <div id="board-wrapper">
+            <div id="board-container">
+                <img id="board-bg" src="assets/background.gif" alt="board"/>
+                <canvas id="canvas" width="560" height="560"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
