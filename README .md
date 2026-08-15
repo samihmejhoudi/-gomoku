@@ -24,7 +24,7 @@ Open the terminal in PyCharm and run:
 python server.py
 ```
 
-This starts everything automatically — the WebSocket server on port 8765 and the HTTP server on port 4321 at the same time. You should see something like:
+This starts everything automatically the WebSocket server on port 8765 and the HTTP server on port 4321 at the same time. You should see something like:
 
 ```
 HTTP server started on port 4321
@@ -37,7 +37,7 @@ The link in your terminal is the exact link to use. Keep this terminal open the 
 
 ---
 
-### Step 2 — Both players open the link
+### Step 2 Both players open the link
 
 Copy the link that appeared in your terminal and open it in the browser. Share it with your friend so they can open it too on their device.
 
@@ -45,7 +45,7 @@ Both players must be on the same WiFi network.
 
 ---
 
-### Step 3 — Play
+### Step 3 Play
 
 - Enter your name and choose a game mode
 - **Create Room** ; creates a private room and gives you a code to share with your friend
@@ -81,11 +81,11 @@ Open the game, enter your name and click vs AI. No second player needed, the ser
 
 ## Common Issues
 
-**Server won't start** — make sure you ran `pip install websockets` and your terminal shows `(.venv)` at the start.
+**Server won't start** make sure you ran `pip install websockets` and your terminal shows `(.venv)` at the start.
 
-**Players not connecting** — make sure all devices are on the same WiFi network and the server is running before opening the browser.
+**Players not connecting**make sure all devices are on the same WiFi network and the server is running before opening the browser.
 
-**Room code not working** — make sure the player who created the room is still connected and the code is exactly 6 letters.
+**Room code not working** make sure the player who created the room is still connected and the code is exactly 6 letters.
 
 ---
 
